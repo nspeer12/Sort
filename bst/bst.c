@@ -127,12 +127,6 @@ int main(void)
      insertNode(root, 10);
      insertNode(root, 52);
      printf("root %d\n", root->right->data);
-     //insertNode(root, 9);
-     //insertNode(root, 13);
-    // insertNode(root, 9);
-    // insertNode(root, 11);
 
-   //  printf("root->data %d\n", root->data);
-     //printf("count leaf %d\n", countLeafNodes(root));
      return 0;
 }

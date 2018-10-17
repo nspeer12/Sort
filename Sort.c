@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <limits.h>
 
 int printArr(int *arr, int n)
 {
@@ -41,20 +41,43 @@ void bubble(int *arr, int n)
      }
 }
 
+void selection(int *arr, int n)
+{
+     // selection sort algorithm
+
+     if(arr == NULL || n <= 0)
+          return;
+
+     int min = 100000000, minIndex;
+     for(int i = 0; i < n; i ++)
+          if(arr[i] < min)
+          {
+              minIndex = i;
+              min = arr[i];
+          }
+
+
+    // printf("\nmin = %d\n", min);
+     swap(arr, 0, minIndex);
+    // printArr(arr, n);
+
+    // recursive call
+     selection(arr + 1, n - 1);
+}
 int main(void)
 {
      srand(time(NULL));
 
-     int size = 100;
+     int size = 15;
      int * arr = malloc(sizeof(int) * size);
      int i;
 
-     for(i = 0; i < 100; i++)
+     for(i = 0; i < 15; i++)
      {
           arr[i] = rand() % 100;
      }
-
-     bubble(arr, size);
+     printArr(arr, size);
+     selection(arr, size);
      printArr(arr, size);
      printf("\n");
      return 0;
