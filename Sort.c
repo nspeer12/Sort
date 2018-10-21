@@ -121,6 +121,94 @@ void insertsort(int * arr, int n)
      }
 }
 
+int range(int *arr, int n)
+{
+     // This function finds the range of values of an array
+     // Will be used for bucket sort
+
+     // set min and max roughly at +- 2 billion
+     int max = -2000000000, min = 2000000000;
+     for(int i = 0; i < n; i ++)
+     {
+          if(arr[i] > max)
+               max = arr[i];
+
+          if(arr[i] < min)
+               min = arr[i];
+     }
+
+     return max - min;
+}
+
+int findMax(int *arr, int n)
+{
+     // This function finds the range of values of an array
+     // Will be used for bucket sort
+
+     // set min and max roughly at +- 2 billion
+     int max = -2000000000;
+     for(int i = 0; i < n; i ++)
+     {
+          if(arr[i] > max)
+               max = arr[i];
+     }
+
+     return max;
+}
+
+int findMin(int *arr, int n)
+{
+     // This function finds the range of values of an array
+     // Will be used for bucket sort
+
+     // set min and max roughly at +- 2 billion
+     int min = 2000000000;
+     for(int i = 0; i < n; i ++)
+     {
+          if(arr[i] < min)
+               min = arr[i];
+     }
+
+     return min;
+}
+
+void bucket(int * arr, int n)
+{
+     int i, x;
+     int * bucket = calloc(range(arr, n), sizeof(int));
+     int min = findMin(arr, n);
+     int max = findMax(arr, n);
+     for(i = 0; i < n; i ++)
+     {
+          bucket[arr[i - min]] ++;
+     }
+
+     for(i = findMin(arr, n); i < max; i ++)
+     {
+          ;
+         // printf("%d %d\n", i, bucket[i]);
+     }
+
+     x = 0;
+     i = 0;
+
+     while(x <= max - min)
+     {
+        printf("%d\n", bucket[x]);
+        x++;
+               /*
+          if(bucket[x] != 0)
+          {
+               arr[i] = bucket[x];
+               i ++;
+               bucket[x] --;
+          }
+          */
+    }
+
+
+}
+
 int main(void)
 {
      srand(time(NULL));
@@ -133,10 +221,13 @@ int main(void)
      {
           arr[i] = rand() % 100;
      }
+
      printArr(arr, size);
-     insertsort(arr, 15);
+     bucket(arr, size);
+     printArr(arr, size);
+     //insertsort(arr, 15);
     // quicksort(arr, size);
-     printArr(arr, size);
+   //  printArr(arr, size);
      printf("\n");
      return 0;
 }
