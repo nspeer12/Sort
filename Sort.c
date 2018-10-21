@@ -64,6 +64,59 @@ void selection(int *arr, int n)
     // recursive call
      selection(arr + 1, n - 1);
 }
+
+void quicksort(int * arr, int n)
+{
+     // p is pivot point
+     // r is right index
+     // l is left index
+     int p, l = 1, r = n-1;
+     p = 0;
+
+     if(arr == NULL)
+          return;
+
+     for(int i = 1; i < n; i ++)
+     {
+         // printf("iteration\n");
+          if(r <= l)
+               return;
+          if(arr[r] < arr[p])
+          {
+               printf("arr[%d] %d > %d arr[%d]\n", p, arr[p], arr[r], r);
+               if(arr[l] > arr[p])
+               {
+                   swap(arr, l, r);
+
+               }
+               l ++;
+               r --;
+          }
+     }
+}
+
+void insertsort(int * arr, int n)
+{
+     // getting extra 0-in array
+     // otherwise working
+     int tmp;
+
+     if(n <= 0)
+          return;
+
+     insertsort(arr, n - 1);
+
+     for(int i = 0; i < n; i ++)
+     {
+
+          if(arr[n] < arr[i])
+          {
+               swap(arr, n, i);
+               swap(arr, i + 1, n);
+          }
+     }
+}
+
 int main(void)
 {
      srand(time(NULL));
@@ -77,7 +130,8 @@ int main(void)
           arr[i] = rand() % 100;
      }
      printArr(arr, size);
-     selection(arr, size);
+     insertsort(arr, 15);
+    // quicksort(arr, size);
      printArr(arr, size);
      printf("\n");
      return 0;
