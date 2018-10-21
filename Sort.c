@@ -97,23 +97,27 @@ void quicksort(int * arr, int n)
 
 void insertsort(int * arr, int n)
 {
-     // getting extra 0-in array
-     // otherwise working
-     int tmp;
+     // let's do this iteratively
+     int peach;
+     int i = 1;
 
-     if(n <= 0)
-          return;
+     int gap;
 
-     insertsort(arr, n - 1);
-
-     for(int i = 0; i < n; i ++)
+     for(i = 1; i < n; i ++)
      {
+          // pull down the value of 1st index of unsorted arr
+          peach = arr[i];
 
-          if(arr[n] < arr[i])
+          // loop backwards through the sorted array
+          // find index to insert peach
+          for(gap = i; gap > 0 & peach < arr[gap - 1]; gap --)
           {
-               swap(arr, n, i);
-               swap(arr, i + 1, n);
+               // shift arr
+               arr[gap] = arr[gap - 1];
           }
+
+          // when gap is the right index to insert the peach
+          arr[gap] = peach;
      }
 }
 
