@@ -11,7 +11,7 @@ int printArr(int *arr, int n)
                printf("\n");
           printf("%d ", arr[i]);
      }
-
+     printf("\n");
 }
 
 void swap(int * arr, int j, int k)
@@ -174,39 +174,41 @@ int findMin(int *arr, int n)
 
 void bucket(int * arr, int n)
 {
-     int i, x;
-     int * bucket = calloc(range(arr, n), sizeof(int));
+     int i, x = 0;
      int min = findMin(arr, n);
      int max = findMax(arr, n);
+     int * bucket = calloc(max + 1, sizeof(int));
+
+     // assume integers are non negative
+     // increment value of bucket whose index is the array's value
      for(i = 0; i < n; i ++)
-     {
-          bucket[arr[i - min]] ++;
-     }
+          bucket[arr[i]]++;
 
-     for(i = findMin(arr, n); i < max; i ++)
+     // loop through all bucket values
+     for(i = 0; i <= max; i ++)
      {
-          ;
-         // printf("%d %d\n", i, bucket[i]);
-     }
-
-     x = 0;
-     i = 0;
-
-     while(x <= max - min)
-     {
-        printf("%d\n", bucket[x]);
-        x++;
-               /*
-          if(bucket[x] != 0)
+          // if a bucket is greater than zero, empty that bucket into the array
+          while(bucket[i] > 0)
           {
-               arr[i] = bucket[x];
-               i ++;
-               bucket[x] --;
+               arr[x] = i;
+               bucket[i]--;
+               x++;
           }
-          */
-    }
+     }
+
+     free(bucket);
+}
 
 
+int isSorted(int * arr, int n)
+{
+     int i;
+
+     for(i = 0; i < n - 1; i ++)
+          if(arr[i] > arr[i + 1])
+               return 0;
+
+     return 1;
 }
 
 int main(void)
@@ -225,6 +227,9 @@ int main(void)
      printArr(arr, size);
      bucket(arr, size);
      printArr(arr, size);
+
+     if(isSorted(arr, size))
+          printf("\narray is sorted\n");
      //insertsort(arr, 15);
     // quicksort(arr, size);
    //  printArr(arr, size);
