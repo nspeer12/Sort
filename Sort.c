@@ -211,6 +211,54 @@ int isSorted(int * arr, int n)
      return 1;
 }
 
+void mergeSort(int * arr, int lo, int hi)
+{
+     int * tmp = NULL;
+     int i = lo, k = 0;
+     int mid = lo + (hi - lo) / 2;
+     int j = mid + 1;
+
+     if(lo >= hi)
+          return;
+
+     mergeSort(arr, lo, mid);
+     mergeSort(arr, mid + 1, hi);
+
+     tmp = malloc(sizeof(int) * (hi - lo + 1));
+
+
+     while(i <= mid || j <= hi)
+     {
+          if(i > mid)
+          {
+               tmp[k++] = arr[j++];
+          }
+          else if (j > hi)
+          {
+               tmp[k++] = arr[i++];
+          }
+          else if (arr[i] < arr[j])
+          {
+               tmp[k++] = arr[i++];
+          }
+          else
+          {
+               tmp[k++] = arr[j++];
+          }
+     }
+
+     for(i = lo; i <= hi; i ++)
+          arr[i] = tmp[i - lo];
+
+     free(tmp);
+
+
+
+
+
+
+}
+
 int main(void)
 {
      srand(time(NULL));
@@ -225,7 +273,8 @@ int main(void)
      }
 
      printArr(arr, size);
-     bucket(arr, size);
+     //bucket(arr, size);
+     myMergeSort(arr, 0, 14);
      printArr(arr, size);
 
      if(isSorted(arr, size))
