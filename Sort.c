@@ -65,62 +65,43 @@ void selection(int *arr, int n)
      selection(arr + 1, n - 1);
 }
 
-void quicksort(int * arr, int n)
-{
-     // p is pivot point
-     // r is right index
-     // l is left index
-     int p, l = 1, r = n-1;
-     p = 0;
 
-     if(arr == NULL)
-          return;
-
-     for(int i = 1; i < n; i ++)
-     {
-         // printf("iteration\n");
-          if(r <= l)
-               return;
-          if(arr[r] < arr[p])
-          {
-               printf("arr[%d] %d > %d arr[%d]\n", p, arr[p], arr[r], r);
-               if(arr[l] > arr[p])
-               {
-                   swap(arr, l, r);
-
-               }
-               l ++;
-               r --;
-          }
-     }
-}
-
-void insertsort(int * arr, int n)
+void insertSort(int * arr, int n)
 {
      // let's do this iteratively
-     int peach;
-     int i = 1;
-
-     int gap;
+     int i, j, val, gap;
 
      for(i = 1; i < n; i ++)
      {
-          // pull down the value of 1st index of unsorted arr
-          peach = arr[i];
+          val = arr[i];
+          gap = i;
 
-          // loop backwards through the sorted array
-          // find index to insert peach
-          for(gap = i; gap > 0 & peach < arr[gap - 1]; gap --)
+          for(j = gap-1; j >=0 && arr[j] > val; j--)
           {
-               // shift arr
-               arr[gap] = arr[gap - 1];
+               arr[j+1] = arr[j];
+               gap--;
           }
 
-          // when gap is the right index to insert the peach
-          arr[gap] = peach;
+          arr[gap] = val;
      }
 }
 
+void insertionSortAgain(int * arr, int n)
+{
+     int peach, x, i, gap;
+
+     for(i = 1; i < n; i ++)
+     {
+          peach = arr[i];
+
+          for(x = i; x > 0 || arr[x -1] > peach; x --)
+          {
+               arr[gap] = arr[gap - 1];
+          }
+
+          arr[gap] = peach;
+     }
+}
 int range(int *arr, int n)
 {
      // This function finds the range of values of an array
@@ -252,11 +233,6 @@ void mergeSort(int * arr, int lo, int hi)
 
      free(tmp);
 
-
-
-
-
-
 }
 
 int main(void)
@@ -272,10 +248,13 @@ int main(void)
           arr[i] = rand() % 100;
      }
 
-     printArr(arr, size);
+     int arr2[8] = { 36, 56, 29, 47, 17, 46, 23, 41};
+     printArr(arr2, 8);
      //bucket(arr, size);
-     myMergeSort(arr, 0, 14);
-     printArr(arr, size);
+     // mergeSort(arr, 0, 14);
+    // quicksort(arr2, 8);
+    insertSort(arr2, 8);
+     printArr(arr, 8);
 
      if(isSorted(arr, size))
           printf("\narray is sorted\n");
