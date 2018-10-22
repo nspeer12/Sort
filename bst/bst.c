@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct node{
      int data;
@@ -120,13 +121,100 @@ int countLeafNodes(node * root)
 
 }
 
+void printInOrder(node * root)
+{
+     if(root == NULL)
+          return;
+
+     printInOrder(root->left);
+     printf("%d ", root->data);
+     printInOrder(root->right);
+}
+
+void printPostOrder(node * root)
+{
+     if(root == NULL)
+          return;
+
+     printPostOrder(root->left);
+     printPostOrder(root->right);
+     printf("%d ", root->data);
+
+}
+void printPreOrder(node * root)
+{
+     if(root == NULL)
+          return;
+
+     printf("%d ", root->data);
+     printPreOrder(root->left);
+     printPreOrder(root->right);
+}
+
+void insertNodeIteratively(node * root, int data)
+{
+     node * tmp = root;
+     while(tmp != NULL)
+     {
+        // printf("tmp %d\n", tmp->data);
+          if(data >= tmp->data)
+          {
+            //   printf("%d is greater than %d", data, tmp->data);
+               if(tmp->right != NULL)
+                    tmp = tmp->right;
+               else
+               {
+                    tmp->right = malloc(sizeof(node));
+                    tmp->right->data = data;
+                    break;
+               }
+          }
+
+          if(data < tmp->data)
+          {
+              if(tmp->left != NULL)
+                    tmp = tmp->left;
+              else
+              {
+                   tmp->left = malloc(sizeof(node));
+                   tmp->left->data = data;
+                   break;
+              }
+         }
+
+         if(data == tmp->data)
+          break;
+     }
+
+     tmp = malloc(sizeof(node));
+    // tmp->data = data;
+}
 int main(void)
 {
+     int num;
+     srand(time(NULL));
      node * root = malloc(sizeof(node));
      root->data = 50;
-     insertNode(root, 10);
-     insertNode(root, 52);
-     printf("root %d\n", root->right->data);
+    // insertNode(root, 10);
+    // insertNode(root, 52);
 
+     for(int i = 0; i < 2; i ++)
+     {
+          num = rand() % 100;
+          insertNode(root, (num < 0 ? num *= -1 : num));
+     }
+     printInOrder(root);
+     insertNodeIteratively(root, 101);
+     insertNodeIteratively(root, -1);
+     printf("\n");
+     printInOrder(root);
+     /*
+     printPostOrder(root);
+     printf("\n");
+     printInOrder(root);
+     printf("\n");
+     printPostOrder(root);
+     printf("\n");
+     */
      return 0;
 }
