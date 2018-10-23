@@ -123,32 +123,37 @@ int countLeafNodes(node * root)
 
 void printInOrder(node * root)
 {
-     if(root == NULL)
-          return;
-
-     printInOrder(root->left);
-     printf("%d ", root->data);
-     printInOrder(root->right);
+     if(root != NULL)
+     {
+          printInOrder(root->left);
+          printf("%d ", root->data);
+          printInOrder(root->right);
+     }
 }
 
 void printPostOrder(node * root)
 {
-     if(root == NULL)
-          return;
+     if(root != NULL)
+     {
+          printPostOrder(root->left);
+          printPostOrder(root->right);
+          printf("%d ", root->data);
+     }
 
-     printPostOrder(root->left);
-     printPostOrder(root->right);
-     printf("%d ", root->data);
+     return;
+
+
 
 }
 void printPreOrder(node * root)
 {
-     if(root == NULL)
-          return;
+     if(root != NULL)
+     {
+          printf("%d ", root->data);
+          printPreOrder(root->left);
+          printPreOrder(root->right);
+     }
 
-     printf("%d ", root->data);
-     printPreOrder(root->left);
-     printPreOrder(root->right);
 }
 
 void insertNodeIteratively(node * root, int data)
@@ -185,9 +190,17 @@ void insertNodeIteratively(node * root, int data)
          if(data == tmp->data)
           break;
      }
+}
 
-     tmp = malloc(sizeof(node));
-    // tmp->data = data;
+node * destroyTreeRecursively(node * root)
+{
+     if (root == NULL) return NULL;
+
+     destroyTreeRecursively(root->left);
+     destroyTreeRecursively(root->right);
+     free(root);
+
+     return NULL;
 }
 int main(void)
 {
@@ -205,18 +218,14 @@ int main(void)
      }
      printInOrder(root);
      //insertNodeIteratively(root, 101);
-     //insertNodeIteratively(root, -1);
+     insertNodeIteratively(root, -1);
      printf("\n");
      printPostOrder(root);
      printf("\n");
      printPreOrder(root);
-     /*
+     printf("\n");
+     destroyTreeRecursively(root);
      printPostOrder(root);
-     printf("\n");
-     printInOrder(root);
-     printf("\n");
-     printPostOrder(root);
-     printf("\n");
-     */
+
      return 0;
 }
