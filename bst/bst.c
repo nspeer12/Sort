@@ -204,10 +204,12 @@ int main(void)
           insertNode(root, (num < 0 ? num *= -1 : num));
      }
      printInOrder(root);
-     insertNodeIteratively(root, 101);
-     insertNodeIteratively(root, -1);
+     //insertNodeIteratively(root, 101);
+     //insertNodeIteratively(root, -1);
      printf("\n");
-     printInOrder(root);
+     printPostOrder(root);
+     printf("\n");
+     printPreOrder(root);
      /*
      printPostOrder(root);
      printf("\n");
