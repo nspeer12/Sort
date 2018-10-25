@@ -211,21 +211,19 @@ int main(void)
     // insertNode(root, 10);
     // insertNode(root, 52);
 
-     for(int i = 0; i < 2; i ++)
+     for(int i = 0; i < 10; i ++)
      {
           num = rand() % 100;
           insertNode(root, (num < 0 ? num *= -1 : num));
      }
      printInOrder(root);
      //insertNodeIteratively(root, 101);
-     insertNodeIteratively(root, -1);
      printf("\n");
      printPostOrder(root);
      printf("\n");
      printPreOrder(root);
      printf("\n");
-     destroyTreeRecursively(root);
-     printPostOrder(root);
+
 
      return 0;
 }
