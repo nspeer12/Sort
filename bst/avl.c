@@ -1,29 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "bst.h"
 
-typedef struct node
+typedef struct avlavlNode
 {
 	int data;
 	int height;
-	struct node *left;
-	struct node *right;
-} node;
+	struct avlNode *left;
+	struct avlNode *right;
+} avlNode;
 
-node * createNode(int data)
+avlNode * createavlNode(int data)
 {
-	node * newNode;
+	avlNode * newavlNode;
 
-	if(newNode = malloc(sizeof(node))) == NULL
+	if(newavlNode = malloc(sizeof(avlNode)) == NULL)
 		return;
 
-	newNode->data = data;
-	newNode->left = NULL;
-	newNode->right = NULL;
-	newNode->height = 0;
+	newavlNode->data = data;
+	newavlNode->left = NULL;
+	newavlNode->right = NULL;
+	newavlNode->height = 0;
 
-	return newNode;
+	return newavlNode;
 }
 
+int getHeight(avlNode * root)
+{
+	if(root == NULL)
+		return -1;
+
+	return root->height;
+}
+
+int balanceFactor(avlNode * root)
+{
+	if(root == NULL)
+		return -1;
+
+	return getHeight(root->left) - getHeight(root->right);
+}
 int main(void)
 {
 
